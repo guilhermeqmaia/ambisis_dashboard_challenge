@@ -16,7 +16,7 @@ class GoalQueryResponse {
     return GoalQueryResponse(
       id: map["id"],
       date: map["date"],
-      isComplete: map["is_complete"],
+      isComplete: map["isComplete"],
       type: map['type'],
     );
   }

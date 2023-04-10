@@ -7,8 +7,8 @@ class FilterGoalsEvent extends IDashboardEvent {
   final DateTime end;
   FilterGoalsEvent({
     required this.start,
-    required this.end,
-  });
+    DateTime? end,
+  }) : end = end ?? DateTime.now();
 }
 
 class RemoveFiltersEvent extends IDashboardEvent {}

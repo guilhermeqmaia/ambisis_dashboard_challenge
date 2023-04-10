@@ -1,3 +1,5 @@
+import '../../../view/helpers/filter_selection_mixin.dart';
+
 abstract class IDashboardState {
   final bool isLoading;
   final List<DashboardGoalState> goals;
@@ -23,17 +25,50 @@ class DashboardInitialState extends IDashboardState {
   }
 }
 
-class DashboardState extends IDashboardState {
-  const DashboardState({
+class DashboardState extends IDashboardState with FilterSelectionMixin {
+  final List<int> filterYears;
+
+  DashboardState({
     List<DashboardGoalState> goals = const [],
     bool isLoading = false,
+    this.filterYears = const [],
   }) : super(goals: goals);
 
+  DateTime get oldestDate {
+    DateTime oldestGoalDate = goals.first.date;
+
+    for (var goal in goals) {
+      if (goal.date.millisecondsSinceEpoch <
+          oldestGoalDate.millisecondsSinceEpoch) {
+        oldestGoalDate = goal.date;
+      }
+    }
+
+    return oldestGoalDate;
+  }
+
+  DateTime get newestDate {
+    DateTime newestGoalDate = goals.first.date;
+
+    for (var goal in goals) {
+      if (goal.date.millisecondsSinceEpoch >
+          newestGoalDate.millisecondsSinceEpoch) {
+        newestGoalDate = goal.date;
+      }
+    }
+
+    return newestGoalDate;
+  }
+
   @override
-  copyWith({List<DashboardGoalState>? goals, bool? isLoading}) {
+  copyWith(
+      {List<DashboardGoalState>? goals,
+      bool? isLoading,
+      List<int>? filterYears}) {
     return DashboardState(
       isLoading: isLoading ?? this.isLoading,
       goals: goals ?? this.goals,
+      filterYears: filterYears ?? this.filterYears,
     );
   }
 }

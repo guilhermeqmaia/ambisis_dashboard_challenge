@@ -4,22 +4,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MainApp()));
+  runApp(const ProviderScope(child: AppWidget()));
 }
 
-class MainApp extends ConsumerStatefulWidget {
-  const MainApp({super.key});
+class AppWidget extends ConsumerStatefulWidget {
+  const AppWidget({super.key, this.fillTable = false});
+
+  final bool fillTable;
 
   @override
-  ConsumerState<MainApp> createState() => _MainAppState();
+  ConsumerState<AppWidget> createState() => _AppWidgetState();
 }
 
-class _MainAppState extends ConsumerState<MainApp> {
+class _AppWidgetState extends ConsumerState<AppWidget> {
   @override
   void initState() {
-    Future.delayed(Duration.zero, () async {
-      await ref.read(fillDatabaseServiceProvider).fillDatabase();
-    });
+    if (widget.fillTable) {
+      Future.delayed(Duration.zero, () async {
+        await ref.read(fillDatabaseServiceProvider).fillDatabase();
+      });
+    }
     super.initState();
   }
 

@@ -1,13 +1,15 @@
 import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/event/dashboard_events.dart';
 import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/state/dashboard_state.dart';
 import 'package:ambisis_dashboard_challenge/modules/dashboard/data/usecase/get_all_goals_usecase.dart';
+import 'package:ambisis_dashboard_challenge/modules/dashboard/view/helpers/filter_selection_mixin.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final dashboardBlocProvider = Provider<DashboardBloc>(
     (ref) => DashboardBloc(ref.read(getAllGoalsUsecaseProvider)));
 
-class DashboardBloc extends Bloc<IDashboardEvent, IDashboardState> {
+class DashboardBloc extends Bloc<IDashboardEvent, IDashboardState>
+    with FilterSelectionMixin {
   final IGetAllGoalsUsecase _usecase;
 
   List<DashboardGoalState>? _fetchedGoals;
@@ -18,7 +20,10 @@ class DashboardBloc extends Bloc<IDashboardEvent, IDashboardState> {
         emit(state.copyWith(isLoading: true));
         final fetchState = await _usecase.getAllGoals();
         _fetchedGoals = fetchState.goals;
-        emit(fetchState.copyWith(isLoading: false));
+        emit(fetchState.copyWith(
+          isLoading: false,
+          filterYears: getFilterSelectionValues(_fetchedGoals!),
+        ));
       },
     );
 
