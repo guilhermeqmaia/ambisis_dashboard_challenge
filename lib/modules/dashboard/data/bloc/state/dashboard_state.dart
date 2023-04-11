@@ -38,7 +38,7 @@ class DashboardState extends IDashboardState with FilterSelectionMixin {
   }) : super(goals: goals, filterType: filterType, isLoading: isLoading);
 
   DateTime get oldestDate {
-    DateTime oldestGoalDate = goals.first.date;
+    DateTime oldestGoalDate = goals.isNotEmpty ? goals.first.date : DateTime(DateTime.now().year);
 
     for (var goal in goals) {
       if (goal.date.millisecondsSinceEpoch <
@@ -51,7 +51,7 @@ class DashboardState extends IDashboardState with FilterSelectionMixin {
   }
 
   DateTime get newestDate {
-    DateTime newestGoalDate = goals.first.date;
+    DateTime newestGoalDate = goals.isNotEmpty ? goals.first.date : DateTime(DateTime.now().year);
 
     for (var goal in goals) {
       if (goal.date.millisecondsSinceEpoch >
