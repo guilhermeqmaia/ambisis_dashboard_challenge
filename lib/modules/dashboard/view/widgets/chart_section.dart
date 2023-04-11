@@ -210,6 +210,7 @@ class _BarChart extends StatelessWidget with ChartInfoMixin {
         BarChartData(
           borderData: FlBorderData(show: false),
           gridData: FlGridData(show: false),
+          barTouchData: BarTouchData(enabled: false),
           titlesData: FlTitlesData(
             rightTitles: AxisTitles(
               sideTitles: SideTitles(showTitles: false),
