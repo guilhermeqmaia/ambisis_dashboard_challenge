@@ -1,5 +1,6 @@
 import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/event/dashboard_events.dart';
 import 'package:ambisis_dashboard_challenge/modules/dashboard/view/widgets/filter_section.dart';
+import 'package:ambisis_dashboard_challenge/modules/dashboard/view/widgets/chart_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -65,6 +66,8 @@ class _DashboardPageState extends ConsumerState<DashboardPage> {
                 child: Column(
                   children: [
                     FilterSection(bloc: bloc),
+                    const SizedBox(height: 15),
+                    ChartSection(bloc: bloc),
                     ...state.goals.map((goal) {
                       return Text('${goal.id}');
                     })
