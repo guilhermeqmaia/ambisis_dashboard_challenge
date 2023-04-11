@@ -1,5 +1,6 @@
 import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/dashboard_bloc.dart';
 import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/state/dashboard_state.dart';
+import 'package:ambisis_dashboard_challenge/shared/utils/build_context_extensions.dart';
 import 'package:ambisis_dashboard_challenge/shared/widgets/content_section.dart';
 import 'package:flutter/material.dart';
 
@@ -14,25 +15,26 @@ class DevelopmentSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.strings;
     return Column(
       children: [
         _DevelopmentSingleSection(
           bloc: bloc,
-          title: 'Ambiental',
+          title: strings.developmentSectionEnvironmental,
           type: EsgGoalType.environmental,
           icon: Icons.forest,
         ),
         const SizedBox(height: 15),
         _DevelopmentSingleSection(
           bloc: bloc,
-          title: 'Social',
+          title: strings.developmentSectionSocial,
           type: EsgGoalType.social,
           icon: Icons.nature_people,
         ),
         const SizedBox(height: 15),
         _DevelopmentSingleSection(
           bloc: bloc,
-          title: 'Governança',
+          title: strings.developmentSectionGovernance,
           type: EsgGoalType.governance,
           icon: Icons.location_city,
         ),
@@ -40,7 +42,7 @@ class DevelopmentSection extends StatelessWidget {
         bloc.state.goals.any((element) => element.type == EsgGoalType.other)
             ? _DevelopmentSingleSection(
                 bloc: bloc,
-                title: 'Outros',
+                title: strings.developmentSectionOther,
                 type: EsgGoalType.other,
                 icon: Icons.description,
               )
@@ -121,6 +123,7 @@ class _DevelopmentInfoRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.strings;
     return Row(
       children: [
         Icon(icon, size: 35),
@@ -139,7 +142,7 @@ class _DevelopmentInfoRow extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Total: ',
+                  strings.developmentSectionTotal,
                   style: TextStyle(
                     color: Colors.grey.shade800,
                     fontWeight: FontWeight.bold,
@@ -159,7 +162,7 @@ class _DevelopmentInfoRow extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  'Concluídas: ',
+                  strings.developmentSectionFinished,
                   style: TextStyle(
                     color: Colors.grey.shade800,
                     fontWeight: FontWeight.bold,

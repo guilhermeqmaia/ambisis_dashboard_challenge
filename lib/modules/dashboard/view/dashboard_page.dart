@@ -2,6 +2,7 @@ import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/event/da
 import 'package:ambisis_dashboard_challenge/modules/dashboard/view/widgets/development_section.dart';
 import 'package:ambisis_dashboard_challenge/modules/dashboard/view/widgets/filter_section.dart';
 import 'package:ambisis_dashboard_challenge/modules/dashboard/view/widgets/chart_section.dart';
+import 'package:ambisis_dashboard_challenge/shared/utils/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,12 +29,13 @@ class _DashboardPageState extends ConsumerState<DashboardPage> {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.strings;
     return Scaffold(
       backgroundColor: Colors.grey.shade400,
       appBar: AppBar(
-        title: const Text(
-          'Dashboard ESG',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        title: Text(
+          strings.dashboardEsg,
+          style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         leading: const Icon(
           Icons.arrow_back_ios,

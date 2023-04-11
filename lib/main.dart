@@ -3,6 +3,8 @@ import 'package:ambisis_dashboard_challenge/modules/dashboard/view/dashboard_pag
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'l10n/dashboards_strings.dart';
+
 void main() {
   runApp(const ProviderScope(child: AppWidget()));
 }
@@ -35,6 +37,8 @@ class _AppWidgetState extends ConsumerState<AppWidget> {
         '/dashboard': (context) => const DashboardPage(),
       },
       initialRoute: '/dashboard',
+      localizationsDelegates: DashboardStrings.localizationsDelegates,
+      supportedLocales: DashboardStrings.supportedLocales,
     );
   }
 }
