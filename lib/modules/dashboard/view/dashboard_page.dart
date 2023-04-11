@@ -1,4 +1,5 @@
 import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/event/dashboard_events.dart';
+import 'package:ambisis_dashboard_challenge/modules/dashboard/view/widgets/development_section.dart';
 import 'package:ambisis_dashboard_challenge/modules/dashboard/view/widgets/filter_section.dart';
 import 'package:ambisis_dashboard_challenge/modules/dashboard/view/widgets/chart_section.dart';
 import 'package:flutter/material.dart';
@@ -68,9 +69,8 @@ class _DashboardPageState extends ConsumerState<DashboardPage> {
                     FilterSection(bloc: bloc),
                     const SizedBox(height: 15),
                     ChartSection(bloc: bloc),
-                    ...state.goals.map((goal) {
-                      return Text('${goal.id}');
-                    })
+                    const SizedBox(height: 15),
+                    DevelopmentSection(bloc: bloc),
                   ],
                 ),
               );
