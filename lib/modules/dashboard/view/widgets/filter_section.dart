@@ -1,4 +1,5 @@
 import 'package:ambisis_dashboard_challenge/modules/dashboard/view/helpers/filter_selection_mixin.dart';
+import 'package:ambisis_dashboard_challenge/shared/utils/build_context_extensions.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/dashboard_bloc.dart';
@@ -19,13 +20,14 @@ class FilterSection extends StatelessWidget with FilterSelectionMixin {
   @override
   Widget build(BuildContext context) {
     final filterYears = (bloc.state as DashboardState).filterYears;
+    final strings = context.strings;
     return ContentSection(
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Filtros',
-            style: TextStyle(
+          Text(
+            strings.filterSectionTitle,
+            style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
             ),
@@ -39,7 +41,7 @@ class FilterSection extends StatelessWidget with FilterSelectionMixin {
                 final filterType = getFilterType(filterYears, year);
                 return _FilterSectionButton(
                   isSelected: bloc.state.filterType == filterType,
-                  title: '$year Anos',
+                  title: '$year ${strings.filterSectionButtonYears}',
                   onPressed: () {
                     bloc.add(
                       FilterGoalsEvent(
@@ -181,9 +183,10 @@ class _FilterSelectionDatePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.strings;
     return _FilterSectionButton(
         isSelected: isSelected,
-        title: 'Por Data',
+        title: strings.filterSectionDatePickerButton,
         onPressed: () async {
           onDateSelected(
             await showDatePicker(
@@ -191,18 +194,18 @@ class _FilterSelectionDatePicker extends StatelessWidget {
               initialDate: firstDate,
               firstDate: firstDate,
               lastDate: DateTime.now(),
-              helpText: 'Selecione a Data Inicial',
-              confirmText: 'Confirmar',
-              cancelText: 'Cancelar',
+              helpText: strings.filterSectionDatePickerInitialDate,
+              confirmText: strings.filterSectionDatePickerInitialConfirmation,
+              cancelText: strings.filterSectionDatePickerInitialCancel,
             ),
             await showDatePicker(
               context: context,
               initialDate: DateTime.now(),
               firstDate: firstDate,
               lastDate: DateTime.now(),
-              helpText: 'Selecione a Data Final',
-              confirmText: 'Confirmar',
-              cancelText: 'Cancelar',
+              helpText: strings.filterSectionDatePickerFinalDate,
+              confirmText: strings.filterSectionDatePickerFinalConfirmation,
+              cancelText: strings.filterSectionDatePickerFinalCancel,
             ),
           );
         });
