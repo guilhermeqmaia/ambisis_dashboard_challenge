@@ -5,15 +5,13 @@ import '../../data/bloc/state/dashboard_state.dart';
 
 mixin ChartInfoMixin {
   String growthRate(List<DashboardGoalState> goals) {
-    DateTime oldestDate = _getOldestDate(goals);
-    DateTime newestDate = _getNewestDate(goals);
+    final chartBars = chartBarsData(goals);
 
-    final goalsInOldestDateYear =
-        goals.where((goal) => goal.date.year == oldestDate.year).length;
-    final goalsInNewestDateYear =
-        goals.where((goal) => goal.date.year == newestDate.year).length;
+    double goalsInOldestDate = chartBars.first.barRods.first.toY;
+    double goalsInNewestDate = chartBars.last.barRods.first.toY;
+
     try {
-      return "${((goalsInNewestDateYear / goalsInOldestDateYear) * 100).floor()}%";
+      return "${(((goalsInNewestDate - goalsInOldestDate) / goalsInOldestDate) * 100).floor()}%";
     } catch (e) {
       return '0%';
     }
@@ -90,7 +88,6 @@ mixin ChartInfoMixin {
           ? goals
           : biggestAmmountOfConcludedGoals;
     }
-
     if (biggestAmmountOfConcludedGoals >= 10) {
       return 2.5;
     } else if (biggestAmmountOfConcludedGoals >= 8) {
