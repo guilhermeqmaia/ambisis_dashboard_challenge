@@ -5,13 +5,13 @@ import 'package:ambisis_dashboard_challenge/core/services/helpers/db_insert_mode
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:random_x/random_x.dart';
 
-final fillDatabaseServiceProvider = Provider<LocalFillDatabaseService>(
-    (ref) => LocalFillDatabaseService(ref.read(databaseProvider)));
+final fillDatabaseServiceProvider = Provider<FillDatabaseService>(
+    (ref) => FillDatabaseService(ref.read(databaseProvider)));
 
-class LocalFillDatabaseService {
+class FillDatabaseService {
   final IDashboardDatabase _database;
 
-  const LocalFillDatabaseService(this._database);
+  const FillDatabaseService(this._database);
 
   Future<void> fillDatabase() async {
     List<DbInsertModel> models = _generateInsertModels();

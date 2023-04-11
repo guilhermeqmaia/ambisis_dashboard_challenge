@@ -1,4 +1,4 @@
-import 'package:ambisis_dashboard_challenge/modules/dashboard/view/helpers/chart_info_mixin.dart';
+import 'package:ambisis_dashboard_challenge/modules/dashboard/view/helpers/chart_section_mixin.dart';
 import 'package:ambisis_dashboard_challenge/shared/widgets/content_section.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
