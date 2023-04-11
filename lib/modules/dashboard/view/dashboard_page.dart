@@ -1,7 +1,11 @@
+import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/event/dashboard_events.dart';
+import 'package:ambisis_dashboard_challenge/modules/dashboard/view/widgets/filter_section.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/services/dashboard_database.dart';
+import '../data/bloc/dashboard_bloc.dart';
+import '../data/bloc/state/dashboard_state.dart';
 
 class DashboardPage extends ConsumerStatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -11,6 +15,15 @@ class DashboardPage extends ConsumerStatefulWidget {
 }
 
 class _DashboardPageState extends ConsumerState<DashboardPage> {
+  late final DashboardBloc bloc;
+
+  @override
+  void initState() {
+    bloc = ref.read(dashboardBlocProvider);
+    bloc.add(FetchGoalsEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,17 +50,29 @@ class _DashboardPageState extends ConsumerState<DashboardPage> {
         backgroundColor: Colors.white,
         elevation: 0,
       ),
-      body: Center(
-        child: FutureBuilder(
-          future: ref.read(databaseProvider).selectEsgGoals(),
-          builder: (context, snapshot) {
-            return ListView.builder(
-              itemCount: snapshot.data?.length,
-              itemBuilder: (_, __) {
-                final value = snapshot.data?[__];
-                return Text(value?['id']?.toString() ?? "");
-              },
-            );
+      body: Padding(
+        padding: const EdgeInsets.all(18),
+        child: BlocBuilder<DashboardBloc, IDashboardState>(
+          bloc: bloc,
+          builder: (context, state) {
+            if (state.isLoading) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (state is DashboardState) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    FilterSection(bloc: bloc),
+                    ...state.goals.map((goal) {
+                      return Text('${goal.id}');
+                    })
+                  ],
+                ),
+              );
+            }
+            return Container();
           },
         ),
       ),

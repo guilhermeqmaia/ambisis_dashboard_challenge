@@ -22,7 +22,7 @@ class DashboardDatabase extends IDashboardDatabase {
 
   Future<Database> _getDatabase() async {
     String dbPath = await sqflite.getDatabasesPath();
-    String dbName = 'f.db';
+    String dbName = 'new.db';
     String path = "$dbPath/$dbName";
     return openDatabase(
       path,
