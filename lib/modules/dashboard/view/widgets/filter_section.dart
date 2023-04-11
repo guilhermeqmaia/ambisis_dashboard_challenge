@@ -1,28 +1,24 @@
+import 'package:ambisis_dashboard_challenge/modules/dashboard/view/helpers/filter_selection_mixin.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/dashboard_bloc.dart';
 import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/event/dashboard_events.dart';
 import 'package:ambisis_dashboard_challenge/modules/dashboard/data/bloc/state/dashboard_state.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../../../../shared/widgets/content_section.dart';
 
-class FilterSection extends StatefulWidget {
+class FilterSection extends StatelessWidget with FilterSelectionMixin {
   final DashboardBloc bloc;
-
   const FilterSection({
     Key? key,
     required this.bloc,
   }) : super(key: key);
 
   @override
-  State<FilterSection> createState() => _FilterSectionState();
-}
-
-class _FilterSectionState extends State<FilterSection> {
-  @override
   Widget build(BuildContext context) {
-    final filterYears = (widget.bloc.state as DashboardState).filterYears;
+    final filterYears = (bloc.state as DashboardState).filterYears;
     return ContentSection(
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,23 +36,22 @@ class _FilterSectionState extends State<FilterSection> {
             runSpacing: 10,
             children: [
               ...filterYears.map((year) {
+                final filterType = getFilterType(filterYears, year);
                 return _FilterSectionButton(
-                  isSelected: true,
+                  isSelected: bloc.state.filterType == filterType,
                   title: '$year Anos',
                   onPressed: () {
-                    widget.bloc.add(
+                    bloc.add(
                       FilterGoalsEvent(
                         start: DateTime(DateTime.now().year - year),
+                        filterType: filterType,
                       ),
                     );
                   },
                 );
               }).toList(),
-
-
-              
               _FilterSelectionDatePicker(
-                isSelected: true,
+                isSelected: bloc.state.filterType == FilterType.custom,
                 firstDate: DateTime(
                   DateTime.now().year - filterYears.last,
                 ),
@@ -64,10 +59,11 @@ class _FilterSectionState extends State<FilterSection> {
                   final firstDate = DateTime(
                     DateTime.now().year - filterYears.last,
                   );
-                  widget.bloc.add(
+                  bloc.add(
                     FilterGoalsEvent(
                       start: start ?? firstDate,
                       end: end,
+                      filterType: FilterType.custom,
                     ),
                   );
                 },
@@ -75,43 +71,56 @@ class _FilterSectionState extends State<FilterSection> {
             ],
           ),
           const SizedBox(height: 10),
-          Row(
-            children: [
-              const Icon(Icons.calendar_today_outlined, size: 18),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  decoration: BoxDecoration(
-                    border: Border.all(width: 0.5, color: Colors.grey),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(DateFormat('dd/MM/yyyy').format((widget.bloc.state as DashboardState).oldestDate)),
-                      Container(
-                        height: 15,
-                        width: 2,
-                        color: Colors.grey.shade300,
-                      ),
-                      Text(DateFormat('dd/MM/yyyy').format((widget.bloc.state as DashboardState).newestDate)),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(width: 8),
-              IconButton(
-                icon: const Icon(Icons.clear),
-                onPressed: () {
-                  widget.bloc.add(RemoveFiltersEvent());
-                },
-              ),
-            ],
-          ),
+          _BottomDateRangeIndicator(bloc),
         ],
       ),
+    );
+  }
+}
+
+class _BottomDateRangeIndicator extends ConsumerWidget {
+  final DashboardBloc bloc;
+
+  const _BottomDateRangeIndicator(this.bloc);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final dateFormat = DateFormat('dd/MM/yyyy');
+    return Row(
+      children: [
+        const Icon(Icons.calendar_today_outlined, size: 18),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            decoration: BoxDecoration(
+              border: Border.all(width: 0.5, color: Colors.grey),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(dateFormat
+                    .format((bloc.state as DashboardState).oldestDate)),
+                Container(
+                  height: 15,
+                  width: 2,
+                  color: Colors.grey.shade300,
+                ),
+                Text(dateFormat
+                    .format((bloc.state as DashboardState).newestDate)),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        IconButton(
+          icon: const Icon(Icons.clear),
+          onPressed: () {
+            bloc.add(RemoveFiltersEvent());
+          },
+        ),
+      ],
     );
   }
 }
@@ -130,20 +139,27 @@ class _FilterSectionButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: isSelected ? Colors.green.shade800 : Colors.grey.shade300,
-      borderRadius: BorderRadius.circular(12),
+    return Container(
+      padding: const EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        gradient: isSelected ? LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Colors.green.shade300,
+            Colors.green.shade500,
+            Colors.green.shade800,
+          ],
+        ) : null,
+      ),
       child: InkWell(
-        splashColor: Colors.grey.shade600,
         onTap: onPressed,
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Text(
-            title,
-            style: TextStyle(
-              fontSize: 13,
-              color: isSelected ? Colors.white : Colors.black,
-            ),
+        child: Text(
+          title,
+          style: TextStyle(
+            fontSize: 13,
+            color: isSelected ? Colors.white : Colors.black,
           ),
         ),
       ),

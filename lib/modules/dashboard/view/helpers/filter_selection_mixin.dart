@@ -18,4 +18,10 @@ mixin FilterSelectionMixin {
       (currentYear - lowerYear),
     ];
   }
+
+  FilterType getFilterType(List<int> filterValues, int year) {
+    if(filterValues.first == year) return FilterType.short;
+    if(filterValues.last == year) return FilterType.long;
+    return FilterType.medium;
+  }
 }

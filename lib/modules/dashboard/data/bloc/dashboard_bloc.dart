@@ -37,13 +37,18 @@ class DashboardBloc extends Bloc<IDashboardEvent, IDashboardState>
           return valueDate >= filterTimeStart && valueDate <= filterTimeEnd;
         }).toList();
 
-        emit(state.copyWith(goals: filteredGoals));
+        emit(state.copyWith(
+          goals: filteredGoals,
+          isLoading: state.isLoading,
+          filterType: event.filterType,
+        ));
       },
     );
 
     on<RemoveFiltersEvent>(
       (event, emit) {
-        emit(state.copyWith(goals: _fetchedGoals));
+        emit(
+            state.copyWith(goals: _fetchedGoals, filterType: event.filterType));
       },
     );
   }
