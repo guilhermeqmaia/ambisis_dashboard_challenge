@@ -16,6 +16,7 @@ class DevelopmentSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final strings = context.strings;
+
     return Column(
       children: [
         _DevelopmentSingleSection(

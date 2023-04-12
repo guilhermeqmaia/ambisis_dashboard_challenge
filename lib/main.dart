@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'l10n/dashboards_strings.dart';
 
 void main() {
-  runApp(const ProviderScope(child: AppWidget()));
+  runApp(const ProviderScope(child: AppWidget(fillTable: true,)));
 }
 
 class AppWidget extends ConsumerStatefulWidget {

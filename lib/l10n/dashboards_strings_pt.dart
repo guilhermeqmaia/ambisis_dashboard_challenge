@@ -35,13 +35,13 @@ class DashboardStringsPt extends DashboardStrings {
   String get filterSectionDatePickerFinalCancel => 'Cancelar';
 
   @override
-  String get chartSectionNoGraphAvailableTitle => 'Ops, Tivemos um Problema';
+  String get noDataAvailableTitle => 'Ops, Tivemos um Problema';
 
   @override
-  String get chartSectionNoGraphAvailableSubtitle => 'Não foi possível gerar um gráfico com base nos dados do período disponibilizado.';
+  String get noDataAvailableSubtitle => 'Não foi possível gerar um gráfico com base nos dados do período disponibilizado.';
 
   @override
-  String get chartSectionNoGraphAvailableDescription => 'Para ter informações aqui, você pode alterar o filtro que define o período de tempo analisado ou inserir dados na base para que possamos construir o gráfico.';
+  String get noDataAvailableDescription => 'Para ter informações aqui, você pode alterar o filtro que define o período de tempo analisado ou inserir dados na base para que possamos construir o gráfico.';
 
   @override
   String get chartSectionTitle => 'Resumo';

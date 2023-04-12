@@ -145,15 +145,17 @@ class _FilterSectionButton extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        gradient: isSelected ? LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.green.shade300,
-            Colors.green.shade500,
-            Colors.green.shade800,
-          ],
-        ) : null,
+        gradient: isSelected
+            ? LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.green.shade300,
+                  Colors.green.shade500,
+                  Colors.green.shade800,
+                ],
+              )
+            : null,
       ),
       child: InkWell(
         onTap: onPressed,

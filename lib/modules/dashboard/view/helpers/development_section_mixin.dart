@@ -1,7 +1,8 @@
 mixin DevelopmentSectionMixin {
   double getProgressValue(int total, int finished) {
     try {
-      return finished / total;
+      final value =  finished / total;
+      return value;
     } catch (e) {
       return 0;
     }

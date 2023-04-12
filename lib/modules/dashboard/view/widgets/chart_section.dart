@@ -1,4 +1,5 @@
 import 'package:ambisis_dashboard_challenge/modules/dashboard/view/helpers/chart_section_mixin.dart';
+import 'package:ambisis_dashboard_challenge/shared/utils/build_context_extensions.dart';
 import 'package:ambisis_dashboard_challenge/shared/widgets/content_section.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -18,41 +19,9 @@ class ChartSection extends StatelessWidget with ChartInfoMixin {
         children: [
           const _SectionHeader(),
           const SizedBox(height: 5),
-          int.tryParse(total(bloc.state.goals)) != 0
-              ? Column(
-                  children: [
-                    _ChartInfoRow(bloc: bloc),
-                    const SizedBox(height: 15),
-                    _BarChart(bloc: bloc)
-                  ],
-                )
-              : Column(
-                  children: [
-                    const Text(
-                      'Ops, Tivemos um Problema',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      'Não foi possível gerar um gráfico com base nos dados do período disponibilizado.',
-                      textAlign: TextAlign.center,
-                      style:
-                          TextStyle(color: Colors.grey.shade800, fontSize: 16),
-                    ),
-                    const SizedBox(height: 5),
-                    Text(
-                      'Para ter informações aqui, você pode alterar o filtro que define o período de tempo analisado ou inserir dados na base para que possamos construir o gráfico.',
-                      style: TextStyle(
-                        color: Colors.grey.shade600,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+          _ChartInfoRow(bloc: bloc),
+          const SizedBox(height: 15),
+          _BarChart(bloc: bloc)
         ],
       ),
     );
@@ -64,21 +33,22 @@ class _SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final strings = context.strings;
     return Row(
       children: [
         const Icon(Icons.bar_chart, size: 28),
         const SizedBox(width: 5),
-        const Text(
-          'Resumo',
-          style: TextStyle(
+        Text(
+          strings.chartSectionTitle,
+          style: const TextStyle(
             fontSize: 21,
             fontWeight: FontWeight.bold,
           ),
         ),
         const Spacer(),
-        const Text(
-          'Regular',
-          style: TextStyle(
+        Text(
+          strings.chartSectionRegular,
+          style: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.bold,
           ),

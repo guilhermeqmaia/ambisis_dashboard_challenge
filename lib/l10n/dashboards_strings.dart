@@ -151,23 +151,23 @@ abstract class DashboardStrings {
   /// **'Cancelar'**
   String get filterSectionDatePickerFinalCancel;
 
-  /// No description provided for @chartSectionNoGraphAvailableTitle.
+  /// No description provided for @noDataAvailableTitle.
   ///
   /// In pt, this message translates to:
   /// **'Ops, Tivemos um Problema'**
-  String get chartSectionNoGraphAvailableTitle;
+  String get noDataAvailableTitle;
 
-  /// No description provided for @chartSectionNoGraphAvailableSubtitle.
+  /// No description provided for @noDataAvailableSubtitle.
   ///
   /// In pt, this message translates to:
   /// **'Não foi possível gerar um gráfico com base nos dados do período disponibilizado.'**
-  String get chartSectionNoGraphAvailableSubtitle;
+  String get noDataAvailableSubtitle;
 
-  /// No description provided for @chartSectionNoGraphAvailableDescription.
+  /// No description provided for @noDataAvailableDescription.
   ///
   /// In pt, this message translates to:
   /// **'Para ter informações aqui, você pode alterar o filtro que define o período de tempo analisado ou inserir dados na base para que possamos construir o gráfico.'**
-  String get chartSectionNoGraphAvailableDescription;
+  String get noDataAvailableDescription;
 
   /// No description provided for @chartSectionTitle.
   ///
