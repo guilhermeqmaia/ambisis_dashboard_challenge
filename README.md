@@ -13,9 +13,10 @@ Você pode acessa-la através desse link de visualização: [clique aqui](https:
 - flutter_bloc: ^8.1.2 (Gerenciamento de Estado)
 - flutter_riverpod: ^2.3.4 (Injeção de Dependência)
 - intl: ^0.17.0 (Internacionalização e Formatos de Data)
-- random_x: ^0.3.1 (Gerador de Valores Aleatórios para um serviço)
+- random_x: ^0.3.1 (Gerador de Valores Aleatórios Para Auxiliar em um Serviço)
 - sqflite: ^2.2.6 (Banco de Dados Local)
 - fl_chart: ^0.61.0 (Gráfico)
+- mocktail: ^0.3.0 (Mock Para Testes Unitários)
 
 ### Orientações Para Rodar o App
 
